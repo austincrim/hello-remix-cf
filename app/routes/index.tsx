@@ -3,7 +3,7 @@ import { Link, MetaFunction, useLoaderData } from 'remix'
 export let meta: MetaFunction = () => {
   return {
     title: "Notin'",
-    description: 'Note-taking powered by Remix'
+    description: 'Send me a note | powered by Remix'
   }
 }
 
@@ -17,11 +17,11 @@ export default function Index() {
 
   let message = (function () {
     if (count === 0) {
-      return "You haven't written any notes yet, what's stopping you?"
+      return 'No one has sent me a note yet. Want to be the first?'
     } else if (count === 1) {
-      return "You've only written 1 note, but that's ok"
+      return "I've got one note! Who wants to be number two?"
     } else {
-      return `You've written ${count} notes. Nice work.`
+      return `I've got ${count} notes. Thanks everyone.`
     }
   })()
 
@@ -29,21 +29,25 @@ export default function Index() {
     if (count === 0) {
       return (
         <p className="mt-10">
-          <Link to="/compose">Let's get started</Link>
+          <Link to="/compose">Drop me a note.</Link>
         </p>
       )
     } else {
       return (
-        <p className="mt-10">
-          Want to <Link to="/compose">keep going</Link> or{' '}
-          <Link to="/notes">do some review?</Link>
-        </p>
+        <>
+          <p className="mt-10">
+            <Link to="/compose">Drop me a note.</Link>
+          </p>
+          <p className="mt-10">
+            <Link to="/notes">Read what others have said.</Link>
+          </p>
+        </>
       )
     }
   })()
   return (
     <main>
-      <h1 className="mt-10 text-5xl font-semibold">Hey! {message}</h1>
+      <h1 className="mt-10 text-5xl font-semibold leading-snug">Hey! {message}</h1>
       {cta}
     </main>
   )

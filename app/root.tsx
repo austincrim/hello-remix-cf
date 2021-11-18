@@ -29,15 +29,14 @@ function Document({ children, title }: { children: React.ReactNode; title?: stri
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/notes">Notes</Link>
+              <Link to="/notes">Read Notes</Link>
             </li>
             <li>
-              <Link to="/compose">Compose</Link>
+              <Link to="/compose">Send Me A Note</Link>
             </li>
           </ul>
         </nav>
         {children}
-        {/* <Scripts /> */}
         {process.env.NODE_ENV === 'development' && <LiveReload />}
       </body>
     </html>

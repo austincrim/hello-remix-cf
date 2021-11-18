@@ -12,7 +12,7 @@ import {
 export let meta: MetaFunction = () => {
   return {
     title: "Notin' - Notes",
-    description: 'Note-taking powered by Remix'
+    description: 'Send me a note | powered by Remix'
   }
 }
 
