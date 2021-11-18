@@ -5,7 +5,6 @@ account_id = ""
 kv_namespaces = [
   {binding = "NOTES", id = "7157ce967fdc4e7cad398bc1f6005f75", preview_id = "7157ce967fdc4e7cad398bc1f6005f75"},
 ]
-route = ""
 workers_dev = true
 zone_id = ""
 
