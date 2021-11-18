@@ -37,7 +37,7 @@ function Document({ children, title }: { children: React.ReactNode; title?: stri
           </ul>
         </nav>
         {children}
-        <Scripts />
+        {/* <Scripts /> */}
         {process.env.NODE_ENV === 'development' && <LiveReload />}
       </body>
     </html>
