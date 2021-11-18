@@ -1,60 +1,60 @@
-import { Note } from '@prisma/client'
-import { Link, LoaderFunction, useLoaderData, Outlet, Form, ActionFunction, json, MetaFunction } from 'remix'
-import prisma from '~/lib/prisma'
-
+import {
+  Link,
+  LoaderFunction,
+  useLoaderData,
+  Outlet,
+  Form,
+  ActionFunction,
+  json,
+  MetaFunction
+} from 'remix'
 
 export let meta: MetaFunction = () => {
   return {
-    title: 'Notin\' - Notes',
+    title: "Notin' - Notes",
     description: 'Note-taking powered by Remix'
   }
 }
 
 export let action: ActionFunction = async ({ request }) => {
-  let id = new URLSearchParams(await request.text()).get('id')
+  let title = new URLSearchParams(await request.text()).get('title')
 
-  if (!id) {
+  if (!title) {
     return json(null, { status: 400 })
   }
 
-  await prisma.note.delete({
-    where: {
-      id: Number(id)
-    }
-  })
+  await NOTES.delete(title)
 
-  return id
+  return title
 }
 
 export let loader: LoaderFunction = async () => {
-  let notes = await prisma.note.findMany()
-  return notes
+  let notes = await NOTES.list()
+  return notes.keys
 }
 
 export default function Notes() {
-  let notes = useLoaderData<Note[]>()
+  let titles = useLoaderData<{ name: string }[]>()
 
   return (
     <>
       <main>
-        <ul className="flex flex-col gap-3 mt-10">
-          {notes.map((note) => (
-            <div className="flex items-center justify-between">
-              <li className="text-xl font-bold" key={note.id}>
-                <Link to={`/notes/${note.id}`}>{note.title}</Link>
-              </li>
+        <ul className="flex flex-col gap-4">
+          {titles.map(({ name }) => (
+            <li className="flex items-center justify-between" key={name}>
+              <Link className="text-xl font-bold" to={`/notes/${name}`}>
+                {name}
+              </Link>
               <Form method="delete">
-                <input type="hidden" name="id" value={note.id} />
+                <input type="hidden" name="title" value={name} />
                 <button type="submit" className="text-red-600">
                   Delete
                 </button>
               </Form>
-            </div>
+            </li>
           ))}
         </ul>
-        <div>
-          <Outlet />
-        </div>
+        <Outlet />
       </main>
     </>
   )

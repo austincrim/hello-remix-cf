@@ -1,5 +1,5 @@
-import { ActionFunction, Form, json, MetaFunction, useTransition } from 'remix'
-import prisma from '~/lib/prisma'
+import React from 'react'
+import { ActionFunction, Form, MetaFunction, useTransition, redirect } from 'remix'
 
 export let meta: MetaFunction = () => {
   return {
@@ -12,25 +12,26 @@ export let action: ActionFunction = async ({ request }) => {
   let fields = Object.fromEntries(new URLSearchParams(await request.text()))
 
   if (!fields.title || !fields.content) {
-    return json(null, { status: 400 })
+    return new Response(null, { status: 400 })
   }
 
-  let created = await prisma.note.create({
-    data: {
-      title: fields.title,
-      content: fields.content
-    }
-  })
-
-  return json(created)
+  await NOTES.put(fields.title, fields.content)
+  return redirect('/compose')
 }
 
 export default function Compose() {
   let transition = useTransition()
+  let formRef = React.useRef(null)
+
+  React.useEffect(() => {
+    if (transition.state === 'idle') {
+      formRef.current.reset()
+    }
+  }, [transition.state])
 
   return (
     <main className="max-w-screen-md p-10 mx-auto">
-      <Form className="flex flex-col gap-4" method="post">
+      <Form ref={formRef} className="flex flex-col gap-4" method="post">
         <label htmlFor="title">Title</label>
         <input required className="p-2 bg-gray-100 rounded-md" name="title" id="title" />
         <label htmlFor="content">Content</label>

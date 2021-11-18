@@ -1,5 +1,4 @@
 import { Link, MetaFunction, useLoaderData } from 'remix'
-import prisma from '~/lib/prisma'
 
 export let meta: MetaFunction = () => {
   return {
@@ -9,9 +8,8 @@ export let meta: MetaFunction = () => {
 }
 
 export let loader = async () => {
-  let count = await prisma.note.count()
-
-  return count
+  let notes = await NOTES.list()
+  return notes.keys.length
 }
 
 export default function Index() {

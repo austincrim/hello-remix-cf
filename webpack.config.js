@@ -1,39 +1,39 @@
-let path = require("path");
+let path = require('path')
 
 module.exports = {
-  target: "webworker",
-  entry: "./worker/entry",
-  devtool: "cheap-module-source-map",
+  target: 'webworker',
+  entry: './worker/entry',
+  devtool: 'none',
   node: false,
   output: {
-    filename: "worker.js",
-    path: path.join(__dirname, "dist")
+    filename: 'worker.js',
+    path: path.join(__dirname, 'dist')
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".js", ".jsx"]
+    extensions: ['.ts', '.tsx', '.js', '.jsx']
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        loader: "esbuild-loader",
-        options: { loader: "js" }
+        loader: 'esbuild-loader',
+        options: { loader: 'js' }
       },
       {
         test: /\.jsx$/,
-        loader: "esbuild-loader",
-        options: { loader: "jsx" }
+        loader: 'esbuild-loader',
+        options: { loader: 'jsx' }
       },
       {
         test: /\.ts$/,
-        loader: "esbuild-loader",
-        options: { loader: "ts" }
+        loader: 'esbuild-loader',
+        options: { loader: 'ts' }
       },
       {
         test: /\.tsx$/,
-        loader: "esbuild-loader",
-        options: { loader: "tsx" }
+        loader: 'esbuild-loader',
+        options: { loader: 'tsx' }
       }
     ]
   }
-};
+}
