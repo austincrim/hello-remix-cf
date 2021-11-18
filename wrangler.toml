@@ -1,3 +1,4 @@
+compatibility_date = "2021-11-18"
 name = "remix-cloudflare-workers"
 type = "javascript"
 
