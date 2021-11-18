@@ -15,7 +15,7 @@ export let action: ActionFunction = async ({ request }) => {
     return new Response(null, { status: 400 })
   }
 
-  await NOTES.put(fields.title, fields.message)
+  await NOTES.put(fields.title, fields.message, { metadata: { composed: Date.now() } })
   return redirect('/compose')
 }
 
