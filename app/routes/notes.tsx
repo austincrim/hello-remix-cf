@@ -9,7 +9,6 @@ export let meta: MetaFunction = () => {
 
 export let loader: LoaderFunction = async () => {
   let notes = await NOTES.list()
-  console.log(notes)
   return notes.keys
 }
 
@@ -32,7 +31,7 @@ export default function Notes() {
                   hour: '2-digit',
                   minute: '2-digit',
                   second: '2-digit'
-                }).format(metadata.composed)}
+                }).format(new Date(metadata.composed))}
               </time>
             </li>
           ))}
