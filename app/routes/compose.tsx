@@ -36,7 +36,7 @@ export default function Compose() {
         <input required className="p-2 bg-gray-100 rounded-md" name="title" id="title" />
         <label htmlFor="message">Message</label>
         <textarea
-          className="bg-gray-100 border-none rounded-md"
+          className="p-2 bg-gray-100 border-none rounded-md"
           name="message"
           id="message"
           required
